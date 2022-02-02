@@ -1,0 +1,44 @@
+Step 1: Update the System 
+sudo apt-get update
+Step 2: Add Prometheus Repository 
+wget https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg | apt-key add -
+Step 3: Install Prometheus 
+sudo apt-get update
+sudo apt-get install prometheus prometheus-node-exporter prometheus-pushgateway prometheus-alertmanager -y
+sudo systemctl status prometheus
+Step 4: UFW Rules
+sudo ufw status
+sudo ufw allow 9090
+Step 6: Download Grafana
+cd /tmp
+sudo wget https://dl.grafana.com/oss/release/grafana_5.4.3_amd64.deb
+Step 8: Installing Dependencies 
+sudo apt-get install -y adduser libfontconfig
+Step 9: Installing Grafana
+sudo dpkg -i grafana_5.4.3_amd64.deb
+Step 10: Controlling Service
+sudo systemctl status grafana-server
+sudo systemctl enable grafana-server
+sudo systemctl start grafana-server
+Step 11: UFW Rules for Grafana
+sudo ufw status
+sudo ufw allow 3000
+Step 12: Setup Grafana GUI Mode
+Once you get the service So then you need to open the port 3000 in UFW or your firewall.
+
+http://localhost:3000 Or http://IP_address:3000
+
+Here you need to use he default username and password to login and reset the password.
+
+Username - admin
+Password  - admin
+After that you need to click on Add data source button after that you need to click on prometheus data source.
+ Select Data source prometheus.
+ Put the prometheus source http://localhost:3000
+if everything is ok,then you will get the msg like "data source is working"
+Step 13: Setup Grafana GUI Mode
+Now you need to import the pre-define system metric dashboard by using the given id, Follow the given step.
+Its time import predefine dashbard, click on Dashboard button after that you should get the import button click on it.
+for basic system monitoring, I am using CPU Utilization Details (Cores) [ID: 10204] custom dashboard. Copy the dashboard ID from here.
+When you click on load So then you need to select prometheus as a data source as well.
+Now should get the pre-define grafana dashboard , Here you will the all the information about the basic system hardware utilization.
